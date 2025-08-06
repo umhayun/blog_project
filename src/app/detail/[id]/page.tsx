@@ -60,7 +60,19 @@ export default function PostDetailPage() {
       }
     }  
   }
+  
+  const handleCommentDelete =async (commentId: number) => {
+    if(confirm('삭제하시겠습니까?')) {
+      const response = await axios.delete(`/api/comments?id=${commentId}`)
+      console.log(response)
+      if (response.data.status==='ok') {
+        getData()
+      }
+    }  
+  }
+
 const grant = loginId === data?.writer || loginId === 'admin'
+
 return (
   <div className="space-y-6">
     {data ? (
@@ -119,18 +131,28 @@ return (
               </button>
             </div>
           </div>
+            <ul className="space-y-4 mt-5">
+              {comments.map((data) => (
+                <li key={data.id} className="bg-white p-4 border border-gray-300 rounded-lg shadow-sm">
+                  <div className="flex justify-between items-center mb-2">
+                    <p className="text-gray-900 font-medium">{data.contents}</p>
+                    {(data.writer===loginId || loginId === 'admin') && 
+                      <button 
+                        onClick={() => handleCommentDelete(data.id)}
+                        className="text-red-600 hover:text-red-800 text-sm font-semibold cursor-pointer"
+                      >
+                        삭제
+                      </button>
+                    }
+                  </div>
+                  <div className="text-sm text-gray-500 flex justify-between">
+                    <span className="font-medium">작성자: {data.writer}</span>
+                    <span>{data.create_date.replace('T', ' ').split('.')[0]}</span>
+                  </div>
+                </li>
+              ))}
+            </ul>
         </div>
-        <ul className="space-y-2">
-          {comments.map((data) => (
-            <li key={data.id} className="bg-white p-3 border border-gray-400 rounded-md text-sm text-gray-800 shadow">
-              {data.contents}
-              <div className="small text-gray-500 w-full flex justify-between"> 
-                <small className="text-left w-fit">작성자: {data.writer}</small>
-                <small className="text-right">{data.create_date.replace('T',' ').split('.')[0]}</small>
-              </div>
-            </li>
-          ))}
-        </ul>
       </>
     ) : (
       <div className="text-center py-20 text-gray-500">불러오는 중입니다...</div>

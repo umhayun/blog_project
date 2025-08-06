@@ -26,3 +26,16 @@ export async function GET(request: NextRequest) {
       })
   }
 }
+
+export async function DELETE(request: NextRequest) {
+  const { searchParams } = new URL(request.url)
+  const id = searchParams.get('id')
+  const response = await supabase.from('comments').delete().eq('id', id)
+  console.log(response)
+  if (response.status===204){
+    return NextResponse.json({"status":"ok","message":"댓글 삭제를 완료했습니다."})
+  } else {
+    return NextResponse.json({"status":"fail","message":"댓글 삭제를 실패했습니다."})
+  }
+}
+    
