@@ -12,7 +12,7 @@ export default function LoginPage() {
     e.preventDefault()
     const response = await axios.post('/api/login',{id,password})
     if (response.data.status==='ok') {
-        router.back()
+        router.push('/')
     } else {
         alert(response.data.message)
         setId('')
