@@ -2,15 +2,22 @@
 import { useParams, useRouter } from 'next/navigation';
 import PostForm from '../../components/PostForm';
 import { useDataStore } from '@/store/useDataStore';
+import axios from 'axios';
 
 export default function EditPostPage() {
   const { id } = useParams();
   const router = useRouter();
   const {selectedPost} = useDataStore()
 
-  const handleUpdate = (title: string, content: string) => {
-    console.log('수정된 글:', { id, title, content });
-    router.push(`/${id}`);
+  const handleUpdate = async (title: string, content: string) => {
+    console.log(content.replace('/n','/n'))
+    const response = await axios.put('/api/contents',JSON.stringify({id,title,content}))
+    if (response.data.status==='ok') {
+      router.push(`/detail/${id}`);
+    } else {
+      alert(response.data.message)
+    }
+    
   };
 
   return (

@@ -15,9 +15,9 @@ export default function PostForm({
   onSubmit,
   buttonLabel = '저장',
 }: PostFormProps) {
+
   const [title, setTitle] = useState(initialTitle);
   const [content, setContent] = useState(initialContent);
-
   return (
     <div className="space-y-4">
       <input
