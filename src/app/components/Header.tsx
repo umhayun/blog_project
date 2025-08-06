@@ -2,10 +2,11 @@
 import Link from 'next/link';
 import Cookies from 'js-cookie';
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function Header() {
   const [loginId, setLoginId] = useState<string | undefined>()
-
+  const router = useRouter()
   useEffect(()=>{
     setLoginId(Cookies.get('user_id'))
   },[])
@@ -13,6 +14,7 @@ export default function Header() {
   const handleLogout = () => {
     Cookies.remove('user_id')
     setLoginId(Cookies.get('user_id'))
+    router.push('/')
   }
 
   return (
