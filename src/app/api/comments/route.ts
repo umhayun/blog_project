@@ -11,7 +11,7 @@ export async function POST(request: NextRequest) {
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url)
   const id = searchParams.get('id')
-  const response = await supabase.from('comments').select('*').eq('post_id', Number(id))
+  const response = await supabase.from('comments').select('*').eq('post_id', Number(id)).order('create_date', { ascending: false })
   if (response.status === 200) {
     return NextResponse.json({
       status: 'ok',

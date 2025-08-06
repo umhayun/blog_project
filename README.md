@@ -1,36 +1,89 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+## blog 게시판 홈페이지 
+> Supabase + Next.js
+> 간단한 글을 작성하고 수정 및 삭제 관리 할 수 있으며 글마다 댓글을 남길 수 있다. 또한 최근 한달간의 조회수를 바탕으로 인기 글을 확인 할 수 있다.
+---
 
-First, run the development server:
+## 🚀 빠른 시작 가이드
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### 1️⃣ 설치 & 실행
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+# 패키지 설치
+npm install --force
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+#  서버 실행
+npm run build
+npm run start
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+src/
+├── app/
+│   ├── (home)/
+│   │   ├── page.tsx # 메인화면
+│   ├── api/
+│   │   ├── comments/
+│   │   │   └── route.ts    # 댓글 관련 API 
+│   │   ├── contents/
+│   │   │   └── route.ts    # 게시물 관련 API
+│   │   ├── login/
+│   │   │   └── route.ts    # 로그인 API
+│   │   └── signUp/
+│   │       └── route.ts    # 회원가입 API
+│   ├── components/
+│   │   ├── Header.tsx      # 로고 및 로그인 버튼
+│   │   └── PostForm.tsx    # 글 작성 or 수정 공통 컴포넌트
+│   ├── create/
+│   │   └── page.tsx        # 글 작성 페이지
+│   ├── detail/
+│   │   └── page.tsx        # 글 상세 페이지
+│   ├── edit/[id]/
+│   │   └── page.tsx        # 글 수정 페이지
+│   ├── login/
+│   │   └── page.tsx        # 로그인 페이지
+│   ├── signup/
+│   │   └── page.tsx        # 회원가입 페이지
+│   ├── globals.css         # 공통 스타일
+│   └── layout.tsx          # 공통 컴포넌트
+├── database/
+│   └── supabaseClient.ts   # Supabase 데이터베이스 클라이언트 설정 및 초기화
+├── store/
+│   └── useDataStore.ts     # Zustand를 활용한 전역 상태 관리
+└── utils/
+    ├── CommonData.ts       # 공통 type 지정
+└── middleware.ts           # 페이지 접근 권한 및 쿠키 관리
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+📜 주요 UI 기능 설명
+1. 게시물 목록
+    게시물 리스트: 화면 중앙에 보이는 게시물 목록입니다.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+    상세 페이지 이동: 목록의 특정 게시물을 클릭하면 해당 게시물의 상세 페이지로 이동합니다.
 
-## Deploy on Vercel
+2. 사용자 기능 및 인증
+    로그인/로그아웃 버튼: 사용자의 로그인 상태에 따라 버튼이 변경됩니다.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+    로그아웃: 로그인된 상태에서는 로그아웃 버튼이 표시됩니다.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+    로그인 페이지: 로그인되지 않은 상태에서는 로그인 버튼이 표시되며, 클릭 시 로그인 페이지로 이동합니다.
+
+    글 작성: 글 작성 버튼은 로그인된 사용자만 접근할 수 있습니다.
+
+    로그인하지 않은 상태에서 이 버튼을 클릭하면 로그인 페이지로 리다이렉트됩니다.
+
+3. 게시물 정렬
+    인기글 보기: 인기글 보기 버튼은 토글 버튼으로 작동합니다.
+
+    클릭할 때마다 전체 게시물 목록과 인기 게시물 목록을 번갈아 가며 볼 수 있습니다.
+    
+    인기글은 최근 30일내 게시글 중 조회수 순으로 정해집니다.
+
+📜 상세 페이지 기능 설명
+1. 게시물 관리 (수정 및 삭제)
+    수정 / 삭제 버튼: 이 버튼들은 게시물 작성자와 **쿠키 정보(로그인된 사용자)**가 일치할 때만 표시됩니다.
+
+    admin 사용자: 만약 로그인한 사용자가 admin 권한을 가지고 있다면, 모든 게시물에서 수정 및 삭제 버튼이 표시됩니다.
+
+2. 댓글 기능
+    댓글 작성: 로그인된 사용자는 댓글 입력란에 내용을 작성하고 등록 버튼을 클릭하여 댓글을 작성할 수 있습니다.
+
+    댓글 목록: 작성된 댓글들이 최신순으로 표시됩니다.

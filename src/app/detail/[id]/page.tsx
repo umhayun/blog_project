@@ -36,9 +36,13 @@ export default function PostDetailPage() {
   const handleCommentSubmit = async () => {
     if (!comment.trim()) return;
     if (!selectedPost) return;
+    if (!loginId) {
+      alert('로그인이필요합니다')
+      return
+    }
     const response = await axios.post('/api/comments',{
       post_id: id,
-      writer:selectedPost.writer,
+      writer:loginId,
       contents:comment,
     })
     if (response.status===200) {
@@ -118,7 +122,7 @@ return (
         </div>
         <ul className="space-y-2">
           {comments.map((data) => (
-            <li key={data.id} className="bg-white p-3 border rounded-md text-sm text-gray-800 shadow">
+            <li key={data.id} className="bg-white p-3 border border-gray-400 rounded-md text-sm text-gray-800 shadow">
               {data.contents}
               <div className="small text-gray-500 w-full flex justify-between"> 
                 <small className="text-left w-fit">작성자: {data.writer}</small>
