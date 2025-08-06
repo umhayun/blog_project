@@ -67,7 +67,7 @@ export default function PostListPage() {
           }
           <Link
             href="/create"
-            className="hidden md:inline-block bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md"
+            className=" md:inline-block bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md"
           >
             글 작성
           </Link>
@@ -76,7 +76,7 @@ export default function PostListPage() {
       <div>
           <button
             onClick={handleHotPosts}
-            className={`hidden md:inline-block ${buttonColor} text-white px-4 py-2 rounded-md mb-2.5`}
+            className={` md:inline-block ${buttonColor} text-white px-4 py-2 rounded-md mb-2.5`}
           >
             {showPopular ? '📋 전체글 보기' : '🔥 인기글 보기'}
           </button>
