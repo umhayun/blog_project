@@ -15,6 +15,7 @@ npm install --force
 npm run build
 npm run start
 
+# 패키지 구조
 src/
 ├── app/                    # Next.js App Router의 핵심 폴더
 │   ├── (home)/             # 홈페이지 레이아웃을 위한 폴더
