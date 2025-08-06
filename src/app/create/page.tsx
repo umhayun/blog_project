@@ -1,12 +1,12 @@
 'use client';
+import axios from 'axios';
+import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
 import PostForm from '../components/PostForm';
-import Cookies from 'js-cookie';
-import axios
- from 'axios';
+
 export default function NewPostPage() {
-  const router = useRouter();
-  const loginId = Cookies.get('user_id');
+  const router = useRouter()
+  const loginId = Cookies.get('user_id')
   const handleSubmit = (title: string, content: string) => {
     axios.post('/api/contents',{
         title,
@@ -14,8 +14,8 @@ export default function NewPostPage() {
         writer: loginId,
         hits:0,
     })
-    router.push('/');
-  };
+    router.push('/')
+  }
 
   return (
     <div>

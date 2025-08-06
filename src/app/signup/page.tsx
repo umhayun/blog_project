@@ -1,35 +1,36 @@
-// app/signup/page.tsx
 'use client';
+
+import axios from 'axios';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import axios from 'axios';
+
 
 export default function SignUpPage() {
-  const router = useRouter();
+  const router = useRouter()
   const [form, setForm] = useState({
     id: '',
     password: '',
     confirm: '',
-  });
+  })
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
+    setForm({ ...form, [e.target.name]: e.target.value })
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (form.password !== form.confirm) {
-      alert('비밀번호가 일치하지 않습니다.');
+      alert('비밀번호가 일치하지 않습니다.')
       return;
     }
     const response = await axios.post('/api/signUp',form)
     if (response.data.status==='ok') {
-        alert('회원가입 성공!');
-        router.push('/login');
+        alert('회원가입 성공!')
+        router.push('/login')
     } else {
         alert(response.data.message)
     }
-  };
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">

@@ -1,13 +1,12 @@
-// app/login/page.tsx
 'use client';
-
+import axios from 'axios';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import axios from 'axios';
+
 export default function LoginPage() {
-  const router = useRouter();
-  const [id, setId] = useState('');
-  const [password, setPassword] = useState('');
+  const router = useRouter()
+  const [id, setId] = useState('')
+  const [password, setPassword] = useState('')
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()

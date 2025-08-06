@@ -21,12 +21,6 @@ export type Comment = {
   create_date: string
 }
 
-export type Message = {
-  id : string;
-  text: string;
-  isUser: boolean;
-}
-
 export type Database = {
   public: {
     Tables: {

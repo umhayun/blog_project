@@ -1,17 +1,17 @@
 // app/page.tsx
 'use client';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import Cookies from 'js-cookie';
-import { useEffect, useState } from 'react';
 import axios from 'axios';
+import Link from 'next/link';
+import Cookies from 'js-cookie';
 import { Post } from '@/utils/CommonData';
+import { useRouter } from 'next/navigation';
 import { useDataStore } from '@/store/useDataStore';
+import { useEffect, useState } from 'react';
 
 export default function PostListPage() {
-  const router = useRouter();
+  const router = useRouter()
+  const [showPopular, setShowPopular] = useState(false)
   const [loginId, setLoginId] = useState(Cookies.get('user_id'))
-  const [showPopular, setShowPopular] = useState(false);
   const { posts, setPosts,setSelectedPost } = useDataStore()
 
   const getData = async (id: string) => {
@@ -20,6 +20,7 @@ export default function PostListPage() {
       setPosts(result.data.data)
     }
   }
+
   const handleLogout = () => {
     Cookies.remove('user_id')
     setLoginId(Cookies.get('user_id'))
@@ -37,7 +38,6 @@ export default function PostListPage() {
     console.log(showPopular)
     setSelectedPost(null)
     getData(showPopular?'top':'all')
-    
   },[showPopular])
 
   const buttonColor = !showPopular? 'bg-yellow-500 hover:bg-yellow-600':'bg-gray-400 hover:bg-gray-500'
@@ -82,7 +82,7 @@ export default function PostListPage() {
           </button>
       </div>
       <table className="w-full text-sm text-gray-800 border-t border-collapse">
-        <thead className="text-xs text-gray-500 bg-gray-50 border-b">
+        <thead className="font-bold text-gray-500 bg-gray-50 border-b ">
           <tr>
             <th className="w-150 px-4 py-2 text-center">제목</th>
             <th className="w-50 px-4 py-2 text-center">작성자</th>
@@ -95,11 +95,11 @@ export default function PostListPage() {
             <tr
               key={post.no}
               onClick={() => handleClick(post)}
-              className="cursor-pointer hover:bg-gray-50 h-20 border-b border-gray-300"
+              className="cursor-pointer hover:bg-gray-50 h-20 border-b border-gray-300 text-1xl"
             >
               <td className="px-4 py-2 text-center">{post.title}</td>
               <td className="px-4 py-2 text-center">{post.writer}</td>
-              <td className="px-4 py-2 text-center">{post.create_date.split('T')[0]}</td>
+              <td className="px-4 py-2 text-center">{post.create_date.replace('T',' ').split('.')[0]}</td>
               <td className="px-4 py-2 text-center">{post.hits}</td>
             </tr>
           ))}

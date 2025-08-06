@@ -3,8 +3,7 @@ import { supabase } from '@/database/supabaseClient';
 
 export async function POST(request: NextRequest) {
     const body = await request.json()    
-    const response = (await supabase.from('comments').insert([body]))
-    console.log(response)
+    const response = await supabase.from('comments').insert([body])
     return NextResponse.json({"status":"fail","message":"댓글등록을 완료했습니다."})
 
 }

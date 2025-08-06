@@ -1,8 +1,9 @@
 'use client';
-import { useParams, useRouter } from 'next/navigation';
+
+import axios from 'axios';
 import PostForm from '../../components/PostForm';
 import { useDataStore } from '@/store/useDataStore';
-import axios from 'axios';
+import { useParams, useRouter } from 'next/navigation';
 
 export default function EditPostPage() {
   const { id } = useParams();
@@ -13,7 +14,7 @@ export default function EditPostPage() {
     console.log(content.replace('/n','/n'))
     const response = await axios.put('/api/contents',JSON.stringify({id,title,content}))
     if (response.data.status==='ok') {
-      router.push(`/detail/${id}`);
+      router.push(`/detail/${id}`)
     } else {
       alert(response.data.message)
     }

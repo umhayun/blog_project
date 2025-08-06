@@ -46,6 +46,7 @@ export async function PUT(request: NextRequest) {
     const body = await request.json()    
     const processedText = body.content.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
     const response = await supabase.from('posts').update({title:body.title, content:processedText}).eq('no',body.id)
+    
     if (response.status===204){
       return NextResponse.json({"status":"ok","message":"글 수정을 완료했습니다."})
     } else {
@@ -57,7 +58,7 @@ export async function DELETE(request: NextRequest) {
   const { searchParams } = new URL(request.url)
   const id = searchParams.get('id')
   const response = await supabase.from('posts').delete().eq('no', id)
-  console.log(response)
+
   if (response.status===204){
     return NextResponse.json({"status":"ok","message":"글 삭제를 완료했습니다."})
   } else {

@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
           path: '/'              
         });
         
-        return response;
+        return response
       }           
     }
 }

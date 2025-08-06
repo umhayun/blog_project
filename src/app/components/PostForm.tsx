@@ -1,13 +1,14 @@
 'use client';
+
 import { useState } from 'react';
 import Link from 'next/link'
 
-type PostFormProps = {
+type PostFormProps = Readonly<{
   initialTitle?: string;
   initialContent?: string;
   onSubmit: (title: string, content: string) => void;
   buttonLabel?: string;
-};
+}>
 
 export default function PostForm({
   initialTitle = '',
@@ -16,8 +17,9 @@ export default function PostForm({
   buttonLabel = '저장',
 }: PostFormProps) {
 
-  const [title, setTitle] = useState(initialTitle);
-  const [content, setContent] = useState(initialContent);
+  const [title, setTitle] = useState(initialTitle)
+  const [content, setContent] = useState(initialContent)
+
   return (
     <div className="space-y-4">
       <input
