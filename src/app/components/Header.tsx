@@ -1,14 +1,18 @@
-// app/page.tsx
 'use client';
 import Link from 'next/link';
 import Cookies from 'js-cookie';
 import { useEffect, useState } from 'react';
 
 export default function Header() {
-  const [loginId, setLoginId] = useState(Cookies.get('user_id'))
+  const [loginId, setLoginId] = useState<string | undefined>()
+
+  useEffect(()=>{
+    setLoginId(Cookies.get('user_id'))
+  },[])
+
   const handleLogout = () => {
     Cookies.remove('user_id')
-    setLoginId(Cookies.get('user_id'))
+    setLoginId(undefined)
   }
 
   return (

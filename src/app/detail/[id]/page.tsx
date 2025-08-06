@@ -6,6 +6,7 @@ import { useDataStore } from '@/store/useDataStore';
 import { Post, Comment } from '@/utils/CommonData';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import Header from '@/app/components/Header';
 
 export default function PostDetailPage() {
   const { id } = useParams()
@@ -60,7 +61,7 @@ export default function PostDetailPage() {
       }
     }  
   }
-  
+
   const handleCommentDelete =async (commentId: number) => {
     if(confirm('삭제하시겠습니까?')) {
       const response = await axios.delete(`/api/comments?id=${commentId}`)
@@ -75,6 +76,7 @@ const grant = loginId === data?.writer || loginId === 'admin'
 
 return (
   <div className="space-y-6">
+    <Header/>
     {data ? (
       <>
         <div className="flex gap-2 justify-end">

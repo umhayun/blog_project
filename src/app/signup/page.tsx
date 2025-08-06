@@ -82,7 +82,7 @@ export default function SignUpPage() {
 
           <button
             type="submit"
-            className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-md font-semibold transition"
+            className="cursor-pointer w-full bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-md font-semibold transition"
           >
             회원가입
           </button>

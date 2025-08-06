@@ -5,6 +5,7 @@ import { Post } from '@/utils/CommonData';
 import { useRouter } from 'next/navigation';
 import { useDataStore } from '@/store/useDataStore';
 import { useEffect, useState } from 'react';
+import Header from '../components/Header';
 
 export default function PostListPage() {
   const router = useRouter()
@@ -35,6 +36,7 @@ export default function PostListPage() {
 
   return (
     <div className="relative min-h-screen">
+      <Header/>
       <div>
           <button
             onClick={handleHotPosts}
