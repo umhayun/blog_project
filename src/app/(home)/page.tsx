@@ -27,7 +27,6 @@ export default function PostListPage() {
   }
 
   useEffect(()=>{
-    console.log(showPopular)
     setSelectedPost(null)
     getData(showPopular?'top':'all')
   },[showPopular])
@@ -41,7 +40,7 @@ export default function PostListPage() {
             onClick={handleHotPosts}
             className={` md:inline-block ${buttonColor} text-white px-4 py-2 rounded-md mb-2.5`}
           >
-            {showPopular ? '📋 전체글 보기' : '🔥 인기글 보기'}
+            {showPopular ? '전체글 보기' : '인기글 보기'}
           </button>
       </div>
       <table className="w-full text-sm text-gray-800 border-t border-collapse">
