@@ -19,7 +19,7 @@ export default function Header() {
           {loginId === undefined ?
             <Link
                 href="/login"
-                className="text-gray-600 hover:text-gray-800 px-4 py-2 rounded-md border border-gray-300"
+                className="text-gray-600 hover:text-gray-800 px-4 py-2 rounded-md border border-gray-300  hover:bg-gray-200"
             >
                 로그인
             </Link>
@@ -27,7 +27,7 @@ export default function Header() {
             <Link
                 onClick={handleLogout}
                 href={''}
-                className="text-gray-600 hover:text-gray-800 px-4 py-2 rounded-md border border-gray-300">
+                className="text-gray-600 hover:text-gray-800 px-4 py-2 rounded-md border border-gray-300 hover:bg-gray-200">
               로그아웃
             </Link>
           }
