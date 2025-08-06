@@ -12,7 +12,7 @@ export default function Header() {
 
   const handleLogout = () => {
     Cookies.remove('user_id')
-    setLoginId(undefined)
+    setLoginId(Cookies.get('user_id'))
   }
 
   return (

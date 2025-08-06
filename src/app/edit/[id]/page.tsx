@@ -11,7 +11,6 @@ export default function EditPostPage() {
   const {selectedPost} = useDataStore()
 
   const handleUpdate = async (title: string, content: string) => {
-    console.log(content.replace('/n','/n'))
     const response = await axios.put('/api/contents',JSON.stringify({id,title,content}))
     if (response.data.status==='ok') {
       router.push(`/detail/${id}`)

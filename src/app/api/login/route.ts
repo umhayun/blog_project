@@ -5,7 +5,6 @@ import { supabase } from '@/database/supabaseClient';
 export async function POST(request: NextRequest) {
     const body = await request.json()    
     const check = await supabase.from('users').select('*', {count:'exact'}).eq('id',body.id).single()
-    console.log(!check.count)
     if (!check.count) {
       return NextResponse.json({"status":"fail","message":"회원정보가 일치하지 않습니다."})
     }

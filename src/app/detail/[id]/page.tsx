@@ -65,7 +65,6 @@ export default function PostDetailPage() {
   const handleCommentDelete =async (commentId: number) => {
     if(confirm('삭제하시겠습니까?')) {
       const response = await axios.delete(`/api/comments?id=${commentId}`)
-      console.log(response)
       if (response.data.status==='ok') {
         getData()
       }
