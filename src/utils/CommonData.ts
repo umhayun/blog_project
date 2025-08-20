@@ -34,3 +34,21 @@ export type Database = {
     }
   }
 }
+
+export interface AssetGroup {
+  id: number;
+  category: string;
+  asset: string;
+  ratio: number;
+  isAdvanced: boolean;
+}
+
+export interface Data {
+  name: string;
+  ticker: string;
+  category: string;
+  country: string;
+  market: string;
+  label: string;
+  value: string;
+}

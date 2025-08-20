@@ -1,3 +1,4 @@
+import Header from "./components/Header";
 import "./globals.css";
 
 export default function RootLayout({
@@ -7,10 +8,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning >
-      <body
-        className={`antialiased m-5`}
-      >
-        {children}
+      <body>
+        <div className={'w-[80%] mx-auto relative'}>
+          <Header />
+          {children}
+        </div>
       </body>
     </html>
   );
