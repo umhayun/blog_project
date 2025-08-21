@@ -1,3 +1,5 @@
+import { NumberInput } from "@/app/components/input/NumInput";
+import { SelectInput } from "@/app/components/input/SelectInput";
 import { useDataStore } from "@/store/useDataStore";
 import { AssetGroup } from "@/utils/CommonData";
 import { useMemo, useState } from "react";
@@ -91,54 +93,28 @@ export const AssetGroupSection = () => {
                   <div className="text-sm font-medium text-white">자산 {String(index + 1).padStart(2, '0')}</div>
                   
                   <div className="grid grid-cols-3 gap-4">
-                    <div>
-                      <label className="block text-gray-400 text-sm mb-1">종류</label>
-                      <select
-                        value={group.category}
-                        onChange={(e) => updateAssetGroup(group.id, 'category', e.target.value)}
-                        className="w-full bg-black border border-gray-600 rounded px-3 py-2 text-white text-sm focus:border-gray-400 focus:outline-none"
-                      >
-                        {categories.map((category) => (
-                          <option key={category} value={category}>
-                            {category}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                    
-                    <div>
-                      <label className="block text-gray-400 text-sm mb-1">자산군</label>
-                      <select
-                        value={group.asset}
-                        onChange={(e) => updateAssetGroup(group.id, 'asset', e.target.value)}
-                        className="w-full bg-black border border-gray-600 rounded px-3 py-2 text-white text-sm focus:border-gray-400 focus:outline-none"
-                      >
-                        {groupedAssets[group.category]?.map((asset) => (
-                          <option key={asset.ticker} value={asset.label}>
-                            {asset.label}
-                          </option>
-                        )) || []}
-                      </select>
-                    </div>
-                    
-                    <div>
-                      <label className="block text-gray-400 text-sm mb-1">비중</label>
-                      <div className="relative">
-                        <input
-                          type="number"
-                          value={group.ratio}
-                          onChange={(e) => updateAssetGroup(group.id, 'ratio', parseInt(e.target.value) || 0)}
-                          className=" w-full bg-black border border-gray-600 rounded px-3 py-2 pr-6 text-white text-sm focus:border-gray-400 focus:outline-none"
-                          min="0"
-                          max="100"
-                        />
-                        <span className="absolute right-2 top-2 text-gray-400 text-sm">%</span>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div className="text-right text-gray-500 text-xs">
-                    0 ~ 100까지 입력할 수 있습니다.
+                    <SelectInput
+                      label='종류'
+                      value='group.category' 
+                      options={categories}
+                      onChange={(value) => updateAssetGroup(group.id, 'category', value)}
+                    />
+                    <SelectInput
+                      label='자산군'
+                      value={group.asset}
+                      options={groupedAssets[group.category]?.map(asset => asset.label) || []}
+                      onChange={(value) => updateAssetGroup(group.id, 'asset', value)}
+                    />
+                    <NumberInput
+                      label="비중"
+                      value={group.ratio}
+                      placeholder="비중을 입력해주세요."
+                      onChange={(value) => updateAssetGroup(group.id, 'ratio', value)}
+                      min={0}
+                      max={100}
+                      unit="%"
+                      info="0 ~ 100까지 입력할 수 있습니다."
+                    />
                   </div>
                   
                   {group.category.includes('미국') && (

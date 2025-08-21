@@ -1,6 +1,6 @@
 interface NumberInputProps {
   label: string;
-  value: string;
+  value: number | string ;
   placeholder?: string;
   onChange: (value: string) => void;
   min?: number;

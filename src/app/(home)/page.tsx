@@ -16,12 +16,7 @@ export default function QuantusClone() {
   const [rebalancingPeriod, setRebalancingPeriod] = useState<string>('추가 리밸런싱 선택해주세요.');
   const [bandRebalancing, setBandRebalancing] = useState<string>('');
   const [selectedSidebar, setSelectedSidebar] = useState<string>('자산배분');
-
-
-  // Zustand 스토어에서 데이터 가져오기
-  const { isScrolled, setIsScrolled, allAsset } = useDataStore();
-
-
+  const { isScrolled, setIsScrolled } = useDataStore();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -95,10 +90,7 @@ export default function QuantusClone() {
               className="w-full bg-black border border-gray-600 rounded px-3 py-2 text-white placeholder-gray-400 focus:border-gray-400 focus:outline-none"
             />
           </div>
-
-          {/* Scrollable Content */}
           <div className="space-y-6 pb-20">
-            {/* 자산배분 */}
             <SelectInput
               label='자산배분 설정 [필수]'
               value={selectedStrategy}
@@ -120,7 +112,6 @@ export default function QuantusClone() {
               options={['분기별', '월별', '반기별', '매년']}
               onChange={(value) => setRebalancingPeriod(value)}
             />
-
             <NumberInput
               label='밴드 리밸런싱'
               value={bandRebalancing}
@@ -130,28 +121,26 @@ export default function QuantusClone() {
               info='0 ~ 100까지 입력할 수 있습니다. (0 입력시 비활성화)'
             />
             <AssetGroupSection />
-            <div className="bg-black p-6 rounded-lg">
-              <MomentumSection />
-              <ReentrySection />
-            </div>
+            <MomentumSection />
+            <ReentrySection />
           </div>
         </main>
-          <aside 
-            className={`sticky right-6 w-32 z-30 transition-all duration-300 p-4  h-fit ${
-               isScrolled ? 'top-16' : 'top-44'}`}
-          >
-            <div className="bg-black rounded-lg p-2 space-y-2">
-              <button className="w-full bg-gray-600 hover:bg-gray-500 text-white py-2 px-3 rounded text-sm font-medium">
-                저장하기
-              </button>
-              <button className="w-full border border-gray-600 hover:bg-black text-white py-2 px-3 rounded text-sm">
-                백테스트
-              </button>
-              <button className="w-full border border-gray-600 hover:bg-black text-white py-2 px-3 rounded text-sm">
-                포트 추출
-              </button>
-            </div>
-          </aside>
+        <aside 
+          className={`sticky right-6 w-32 z-30 transition-all duration-300 p-4  h-fit ${
+              isScrolled ? 'top-16' : 'top-44'}`}
+        >
+          <div className="bg-black rounded-lg p-2 space-y-2">
+            <button className="w-full bg-gray-600 hover:bg-gray-500 text-white py-2 px-3 rounded text-sm font-medium">
+              저장하기
+            </button>
+            <button className="w-full border border-gray-600 hover:bg-black text-white py-2 px-3 rounded text-sm">
+              백테스트
+            </button>
+            <button className="w-full border border-gray-600 hover:bg-black text-white py-2 px-3 rounded text-sm">
+              포트 추출
+            </button>
+          </div>
+        </aside>
       </div>
     </div>
   );

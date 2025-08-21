@@ -11,5 +11,5 @@ interface DataStore {
 export const useDataStore = create<DataStore>((set) => ({
     isScrolled: false,
     setIsScrolled: (isScrolled: boolean) => set({ isScrolled }),
-    allAsset: dummy as Data[], 
+    allAsset: [], 
 }));
